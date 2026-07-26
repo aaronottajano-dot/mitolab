@@ -82,23 +82,34 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 
 /* ---------- card grid ---------- */
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-.card{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:6px;
-  min-height:184px;padding:22px 18px;display:flex;flex-direction:column;
-  cursor:pointer;transition:border-color .14s;}
-.card:hover{border-color:#BEBEBE;}
+.card{position:relative;height:202px;border:1px solid var(--line);border-radius:6px;
+  cursor:pointer;transition:border-color .14s;perspective:1200px;}
+.card:hover{border-color:#C4C4C4;}
 .card.on{border-color:var(--line-strong);}
-.card-brand{font-size:10px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--muted);text-align:center;}
-.card-name{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;
-  font-size:19px;font-weight:300;letter-spacing:-.01em;line-height:1.25;padding:14px 4px;}
-.card-foot{display:flex;align-items:center;justify-content:center;gap:8px;
-  font-size:11.5px;font-weight:300;color:var(--muted);}
-.card-foot .d{width:2px;height:2px;border-radius:50%;background:var(--muted);}
-.pickdot{position:absolute;top:11px;right:11px;width:17px;height:17px;border-radius:50%;
-  border:1px solid var(--line);background:var(--bg);transition:all .12s;}
-.card:hover .pickdot{border-color:#BEBEBE;}
-.card.on .pickdot{background:var(--ink);border-color:var(--ink);}
-.card.on .pickdot::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--bg);}
+.flip{position:absolute;inset:0;transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.4,.12,.2,1);}
+.card:hover .flip,.card:focus-within .flip{transform:rotateY(180deg);}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  display:flex;flex-direction:column;padding:20px 18px;border-radius:6px;background:var(--bg);overflow:hidden;}
+/* front: name + brand centred */
+.front{align-items:center;justify-content:center;text-align:center;gap:9px;}
+.card-name{font-size:19px;font-weight:300;letter-spacing:-.01em;line-height:1.25;}
+.card-brand{font-size:11px;font-weight:400;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);}
+/* back: quick values */
+.back{transform:rotateY(180deg);justify-content:space-between;}
+.back-split .mini{width:100%;}
+.back-key{display:flex;justify-content:space-between;margin-top:7px;font-size:10px;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--muted);}
+.back-rows{display:flex;flex-direction:column;margin:0;}
+.back-r{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:12.5px;font-weight:300;padding:5px 0;border-top:1px solid var(--hair);}
+.back-r:first-child{border-top:none;}
+.back-r dt{color:var(--muted);}
+.back-r dd{margin:0;font-weight:400;color:var(--ink);}
+.back-cta{font-size:11px;font-weight:400;letter-spacing:.03em;text-align:center;
+  padding:7px;border:1px solid var(--line);border-radius:5px;color:var(--soft);transition:all .12s;}
+.back-cta:hover{border-color:var(--ink);color:var(--ink);}
+.back-cta.on{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 
 /* ---------- table ---------- */
 .tablewrap{border:1px solid var(--line);border-radius:8px;overflow-x:auto;}
@@ -216,7 +227,9 @@ table.list tr.on td{background:#F4F4F3;}
   .search{width:100%;}
   .grid{grid-template-columns:repeat(2,1fr);}
 }
-@media(max-width:480px){ .grid{grid-template-columns:repeat(2,1fr);gap:10px;} .card{min-height:140px;padding:16px 12px;} .card-name{font-size:16px;} }
+@media(max-width:480px){ .grid{grid-template-columns:repeat(2,1fr);gap:10px;} .card{height:176px;} .face{padding:15px 13px;} .card-name{font-size:16px;} }
+/* Touch devices have no hover: tap opens the full view directly, no flip. */
+@media(hover:none){ .card:hover .flip,.card:focus-within .flip{transform:none;} .back{display:none;} }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 </head>
@@ -330,9 +343,27 @@ function visible(){
 
 function card(g){
   const on=state.picked.includes(g.id);
+  const ratio = g.ratio==null ? "" :
+    `<i class="s1" style="width:${Math.round(g.ratio*100)}%"></i><i class="s2" style="width:${100-Math.round(g.ratio*100)}%"></i>`;
   return `<article class="card${on?" on":""}" data-detail="${g.id}">
-    <button class="pickdot" data-pick="${g.id}" aria-label="Select to compare" aria-pressed="${on}"></button>
-    <div class="card-name">${esc(g.name)}</div>
+    <div class="flip">
+      <div class="face front">
+        <div class="card-name">${esc(g.name)}</div>
+        <div class="card-brand">${esc(g.brand)}</div>
+      </div>
+      <div class="face back">
+        <div class="back-split">
+          <div class="mini">${ratio}</div>
+          <div class="back-key"><span>Glu : fru</span><span>${g.ratioLabel}</span></div>
+        </div>
+        <dl class="back-rows">
+          <div class="back-r"><dt>Carbs</dt><dd>${g.carbs} g</dd></div>
+          <div class="back-r"><dt>Sodium</dt><dd>${num(g.sodium)} mg</dd></div>
+          <div class="back-r"><dt>Caffeine</dt><dd>${g.caffeine} mg</dd></div>
+        </dl>
+        <button class="back-cta${on?" on":""}" data-pick="${g.id}">${on?"✓ Selected":"Add to compare"}</button>
+      </div>
+    </div>
   </article>`;
 }
 
