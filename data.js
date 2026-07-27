@@ -1,6 +1,6 @@
 // GELINDEX data - add new gels here. Last updated: July 2026
-// Units: sodium/potassium/magnesium/caffeine in mg, carbs/sugar in g.
-// null = not stated by the manufacturer.
+// Units: sodium/potassium/magnesium/caffeine in mg, carbs/sugar in g, energy in kcal + kJ.
+// null = not stated by the manufacturer. Prices intentionally omitted.
 const GELS = [
   {
     "id": "maurten-gel-100",
@@ -21,16 +21,18 @@ const GELS = [
     "consistency": "Hydrogel",
     "form": "Gel",
     "carbSources": "Glucose, fructose",
-    "price": 3.46,
     "p100": {
       "kcal": 250,
+      "kj": 1046,
       "carbs": 62.5,
       "sugar": 62.5,
       "sodium": 50,
       "caffeine": 0
     },
     "source": "maurten.com label",
-    "status": "verified"
+    "status": "verified",
+    "kj": 418,
+    "kjSource": "calc"
   },
   {
     "id": "maurten-gel-100-caf-100",
@@ -51,16 +53,18 @@ const GELS = [
     "consistency": "Hydrogel",
     "form": "Gel",
     "carbSources": "Glucose, fructose",
-    "price": 3.96,
     "p100": {
       "kcal": 250,
+      "kj": 1046,
       "carbs": 62.5,
       "sugar": 62.5,
       "sodium": 50,
       "caffeine": 250
     },
     "source": "maurten.com - same as Gel 100 plus 100 mg caffeine",
-    "status": "verified"
+    "status": "verified",
+    "kj": 418,
+    "kjSource": "calc"
   },
   {
     "id": "maurten-gel-160",
@@ -81,16 +85,18 @@ const GELS = [
     "consistency": "Hydrogel",
     "form": "Gel",
     "carbSources": "Glucose, fructose",
-    "price": 4.75,
     "p100": {
       "kcal": 246,
+      "kj": 1029,
       "carbs": 61.5,
       "sugar": 61.5,
       "sodium": 46,
       "caffeine": 0
     },
     "source": "maurten.com / thefeed - 65 g sachet, 30 mg sodium; per-100 g calculated",
-    "status": "verified (per 100 g calculated)"
+    "status": "verified (per 100 g calculated)",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-gel-40-neutral-1-0-8",
@@ -111,16 +117,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, sea salt",
-    "price": 3.23,
     "p100": {
       "kcal": 266,
+      "kj": 1113,
       "carbs": 67,
       "sugar": 31,
       "sodium": 84,
       "caffeine": 0
     },
     "source": "mnstry.com label",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-gel-40-mango",
@@ -141,16 +149,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, mango (20%), fructose (no sea salt)",
-    "price": 2.98,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 66,
       "sugar": 22,
       "sodium": 32,
       "caffeine": 0
     },
     "source": "OpenFoodFacts / mnstry.com label",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-gel-40-lemon",
@@ -171,16 +181,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, lemon juice, sea salt",
-    "price": 2.98,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 66,
       "sugar": 25,
       "sodium": 340,
       "caffeine": 0
     },
     "source": "mnstry.com label - with sea salt, hence 200 mg",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-gel-40-apricot",
@@ -201,16 +213,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, apricot (20%), fructose (no sea salt)",
-    "price": 2.98,
     "p100": {
       "kcal": 268,
+      "kj": 1121,
       "carbs": 67,
       "sugar": 25,
       "sodium": 80,
       "caffeine": 0
     },
     "source": "mnstry.com label",
-    "status": "verified"
+    "status": "verified",
+    "kj": 674,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-gel-40-peach",
@@ -231,16 +245,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, peach (20%), fructose (no sea salt)",
-    "price": 2.98,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 67,
       "sugar": 25,
       "sodium": 80,
       "caffeine": 0
     },
     "source": "mnstry.com label",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-gel-40-apple-1-0-8",
@@ -261,16 +277,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, apple juice (15%), sea salt",
-    "price": 3.23,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 67,
       "sugar": 32,
       "sodium": 340,
       "caffeine": 0
     },
     "source": "mnstry.com label - with sea salt, hence 200 mg",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-gel-40-menthol-1-0-8",
@@ -291,16 +309,18 @@ const GELS = [
     "consistency": "Gel (pectin), cooling",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, sea salt, mint oil, Menthol (0.01%)",
-    "price": 3.23,
     "p100": {
       "kcal": 266,
+      "kj": 1113,
       "carbs": 67,
       "sugar": 31,
       "sodium": 84,
       "caffeine": 0
     },
     "source": "mnstry.com label",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-caffeine-gel-40-neutral-1-0-8",
@@ -321,16 +341,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, caffeine (coffee extract), zinc lactate",
-    "price": 3.23,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 67,
       "sugar": 32,
       "sodium": 80,
       "caffeine": 167
     },
     "source": "mnstry.com label - 100 mg caffeine, low sodium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-caffeine-gel-40-orange-1-0-8",
@@ -351,16 +373,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, blood orange juice (20%), caffeine",
-    "price": 3.23,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 67,
       "sugar": 33,
       "sodium": 80,
       "caffeine": 125
     },
     "source": "mnstry.com label - 75 mg caffeine, low sodium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 674,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-caffeine-gel-40-lime-1-0-8",
@@ -381,16 +405,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, lime juice (5%), sea salt, coffee extract, matcha, guarana",
-    "price": 3.23,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 67,
       "sugar": 32,
       "sodium": 320,
       "caffeine": 250
     },
     "source": "mnstry.com label - 150 mg caffeine, 200 mg sodium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-caffeine-gel-40-matcha",
@@ -411,16 +437,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, matcha, guarana",
-    "price": 2.98,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 67,
       "sugar": 25,
       "sodium": 84,
       "caffeine": 167
     },
     "source": "mnstry.com label - 100 mg caffeine, low sodium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-caffeine-gel-40-cherry",
@@ -441,16 +469,18 @@ const GELS = [
     "consistency": "Gel (pectin)",
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose, sour cherry juice (12%), sea salt, vanilla, caffeine",
-    "price": 2.98,
     "p100": {
       "kcal": 267,
+      "kj": 1117,
       "carbs": 67,
       "sugar": 24,
       "sodium": 340,
       "caffeine": 125
     },
     "source": "mnstry.com label - 75 mg caffeine, 200 mg sodium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-jelly-40-neutral-1-0-8",
@@ -471,16 +501,18 @@ const GELS = [
     "consistency": "Jelly (firm, chewable)",
     "form": "Jelly",
     "carbSources": "Rice syrup, fructose, sugar, dextrose (no sea salt)",
-    "price": 3.23,
     "p100": {
       "kcal": 277,
+      "kj": 1159,
       "carbs": 69,
       "sugar": 53,
       "sodium": 80,
       "caffeine": 0
     },
     "source": "mnstry.com label - low sodium, very high in sugar",
-    "status": "verified"
+    "status": "verified",
+    "kj": 674,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-jelly-40-pomegranate-1-0-8",
@@ -501,16 +533,18 @@ const GELS = [
     "consistency": "Jelly (firm, chewable)",
     "form": "Jelly",
     "carbSources": "Rice syrup, pomegranate juice (25%), sugar, dextrose, sea salt",
-    "price": 3.23,
     "p100": {
       "kcal": 277,
+      "kj": 1159,
       "carbs": 69,
       "sugar": 54,
       "sodium": 360,
       "caffeine": 0
     },
     "source": "mnstry.com label - 200 mg sodium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 674,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-jelly-40-rhubarb-1-0-8",
@@ -531,16 +565,18 @@ const GELS = [
     "consistency": "Jelly (firm, chewable)",
     "form": "Jelly",
     "carbSources": "Rice syrup, rhubarb juice (36%), sugar, dextrose, sea salt",
-    "price": 3.23,
     "p100": {
       "kcal": 278,
+      "kj": 1163,
       "carbs": 69,
       "sugar": 52,
       "sodium": 360,
       "caffeine": 0
     },
     "source": "mnstry.com label - 200 mg sodium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 674,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-bicarb-gel-40-lemon-1-0-8",
@@ -561,16 +597,18 @@ const GELS = [
     "consistency": "Gel + encapsulated bicarbonate",
     "form": "Bicarb",
     "carbSources": "Sucrose, Maltodextrin, fructose, Na/K bicarbonate (5 g), lemon oil",
-    "price": 3.48,
     "p100": {
       "kcal": 247,
+      "kj": 1033,
       "carbs": 62,
       "sugar": 54,
       "sodium": 1920,
       "caffeine": 0
     },
     "source": "mnstry.com label - sodium includes bicarbonate; contains potassium + magnesium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 674,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-ice-gel-40-mango-orange",
@@ -591,16 +629,18 @@ const GELS = [
     "consistency": "Gel (freezable), cooling",
     "form": "ICE",
     "carbSources": "mango & orange juice (35%), Maltodextrin, fructose, Sucrose, glycerol, sodium chloride",
-    "price": 3.48,
     "p100": {
       "kcal": 209,
+      "kj": 874,
       "carbs": 52,
       "sugar": 25,
       "sodium": 280,
       "caffeine": 0
     },
     "source": "mnstry.com label",
-    "status": "verified"
+    "status": "verified",
+    "kj": 674,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-ice-gel-40-blueberry-mint",
@@ -621,16 +661,18 @@ const GELS = [
     "consistency": "Gel (freezable), cooling",
     "form": "ICE",
     "carbSources": "Blueberry juice (36%), Maltodextrin, fructose, Sucrose, glycerol, sodium chloride, mint oil",
-    "price": 3.48,
     "p100": {
       "kcal": 213,
+      "kj": 891,
       "carbs": 52,
       "sugar": 25,
       "sodium": 280,
       "caffeine": 0
     },
     "source": "mnstry.com label (serving kcal on the page is wrong; 160 calculated from carbs)",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
   },
   {
     "id": "mnstry-ice-gel-40-neutral-1-0-8",
@@ -651,15 +693,401 @@ const GELS = [
     "consistency": "Gel (freezable), cooling",
     "form": "ICE",
     "carbSources": "Maltodextrin, fructose, Sucrose, glycerol, sodium chloride",
-    "price": 3.65,
     "p100": {
       "kcal": 208,
+      "kj": 870,
       "carbs": 52,
       "sugar": 29,
       "sodium": 64,
       "caffeine": 0
     },
     "source": "mnstry.com label - low sodium",
-    "status": "verified"
+    "status": "verified",
+    "kj": 669,
+    "kjSource": "calc"
+  },
+  {
+    "id": "neversecond-c30-citrus",
+    "brand": "Neversecond",
+    "name": "C30 Citrus",
+    "flavor": "Citrus",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 0,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-berry",
+    "brand": "Neversecond",
+    "name": "C30 Berry",
+    "flavor": "Berry",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 0,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-passion-fruit",
+    "brand": "Neversecond",
+    "name": "C30 Passion Fruit",
+    "flavor": "Passion Fruit",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 0,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-fruit-punch",
+    "brand": "Neversecond",
+    "name": "C30 Fruit Punch",
+    "flavor": "Fruit Punch",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 0,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-orange",
+    "brand": "Neversecond",
+    "name": "C30 Orange",
+    "flavor": "Orange",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 0,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-watermelon",
+    "brand": "Neversecond",
+    "name": "C30 Watermelon",
+    "flavor": "Watermelon",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 0,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-cola",
+    "brand": "Neversecond",
+    "name": "C30+ Cola",
+    "flavor": "Cola",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 75,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-espresso",
+    "brand": "Neversecond",
+    "name": "C30+ Espresso",
+    "flavor": "Espresso",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 75,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-berry",
+    "brand": "Neversecond",
+    "name": "C30+ Berry",
+    "flavor": "Berry",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 75,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-passion-fruit",
+    "brand": "Neversecond",
+    "name": "C30+ Passion Fruit",
+    "flavor": "Passion Fruit",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 75,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-neutral",
+    "brand": "Neversecond",
+    "name": "C30 Neutral",
+    "flavor": "Neutral (unflavored)",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 0,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
+  },
+  {
+    "id": "neversecond-c30-neutral",
+    "brand": "Neversecond",
+    "name": "C30+ Neutral",
+    "flavor": "Neutral (unflavored)",
+    "kcal": 120,
+    "kj": 502,
+    "kjSource": "label-calc",
+    "carbs": 30,
+    "sugar": 10,
+    "sodium": 200,
+    "potassium": null,
+    "magnesium": null,
+    "caffeine": 75,
+    "ratio": 0.667,
+    "ratioLabel": "2:1",
+    "sizeG": null,
+    "ml": 60,
+    "consistency": "Gel (isotonic, liquid)",
+    "form": "Gel",
+    "carbSources": "Maltodextrin, fructose (2:1)",
+    "p100": {
+      "kcal": null,
+      "kj": null,
+      "carbs": null,
+      "sugar": null,
+      "sodium": null,
+      "caffeine": null
+    },
+    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "status": "verified (per gel)"
   }
 ];
