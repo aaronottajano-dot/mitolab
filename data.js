@@ -1,6 +1,7 @@
 // GELINDEX data - add new gels here. Last updated: July 2026
 // Units: sodium/potassium/magnesium/caffeine in mg, carbs/sugar in g, energy in kcal + kJ.
 // null = not stated by the manufacturer. Prices intentionally omitted.
+// Neversecond: per-100 values are per 100 ml (volume-based; no gram weight published).
 const GELS = [
   {
     "id": "maurten-gel-100",
@@ -728,14 +729,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 0
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -760,14 +761,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 0
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -792,14 +793,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 0
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -824,14 +825,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 0
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -856,14 +857,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 0
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -888,14 +889,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 0
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -920,14 +921,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 125
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -952,14 +953,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 125
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -984,14 +985,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 125
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -1016,14 +1017,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 125
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -1048,14 +1049,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 0
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   },
   {
@@ -1080,14 +1081,14 @@ const GELS = [
     "form": "Gel",
     "carbSources": "Maltodextrin, fructose (2:1)",
     "p100": {
-      "kcal": null,
-      "kj": null,
-      "carbs": null,
-      "sugar": null,
-      "sodium": null,
-      "caffeine": null
+      "kcal": 200,
+      "kj": 837,
+      "carbs": 50,
+      "sugar": 17,
+      "sodium": 333,
+      "caffeine": 125
     },
-    "source": "eu.never2.com label — per gel (kJ = kcal×4.184; per-100 g not published, volume-based)",
+    "source": "eu.never2.com label — per gel; per-100 ml computed from 60 ml serving (no weight published)",
     "status": "verified (per gel)"
   }
 ];

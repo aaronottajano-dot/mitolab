@@ -396,7 +396,7 @@ function card(g){
 const COLS=[
   {key:"name",l:true,label:"Gel"},{key:null,l:true,label:"Glu : fru"},
   {key:"carbs",label:"Carbs g"},{key:"sugar",label:"Sugar g"},{key:"sodium",label:"Sodium mg"},
-  {key:"caffeine",label:"Caffeine mg"},{key:"kcal",label:"kcal"},{key:"kj",label:"kJ"},{key:"dens",label:"Carbs/100 g"},
+  {key:"caffeine",label:"Caffeine mg"},{key:"kcal",label:"kcal"},{key:"kj",label:"kJ"},{key:"dens",label:"Carbs/100"},
 ];
 function table(list){
   const head=COLS.map(c=>{
@@ -431,7 +431,7 @@ function detailSheet(g){
       <button class="x" data-close="1" aria-label="Close">✕</button>
     </div>
     ${splitBar(g)}
-    <table class="dt" style="margin-top:20px"><thead><tr><th></th><th>per gel</th><th>per 100 g</th></tr></thead><tbody>
+    <table class="dt" style="margin-top:20px"><thead><tr><th></th><th>per gel</th><th>per 100 ${(g.sizeG==null&&g.ml!=null)?"ml":"g"}</th></tr></thead><tbody>
       <tr><td>Energy</td><td><b>${g.kcal}</b> <em>kcal</em> · <b>${v(g.kj)}</b> <em>kJ</em></td><td>${v(g.p100.kcal)} <em>kcal</em></td></tr>${rows.filter(r=>r[0]!=="Energy").map(r=>`<tr><td>${r[0]}</td><td><b>${v(r[1])}</b> <em>${r[3]}</em></td><td>${v(r[2])} <em>${r[3]}</em></td></tr>`).join("")}
       <tr><td>Potassium</td><td colspan="2">${v(g.potassium)}</td></tr>
       <tr><td>Magnesium</td><td colspan="2">${v(g.magnesium)}</td></tr>
