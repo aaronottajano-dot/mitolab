@@ -63,9 +63,23 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .opt .tick{font-size:11px;color:var(--ink);opacity:0;transition:opacity .12s;}
 .opt.on .tick{opacity:1;}
 
-.sortline{display:flex;align-items:center;gap:8px;margin-top:2px;}
-.sortline .dir{font-size:13px;color:var(--muted);padding:2px 5px;transition:color .12s;}
-.sortline .dir:hover{color:var(--ink);}
+/* collapsible filter groups */
+#filterlist{width:100%;display:flex;flex-direction:column;}
+.fgroup{}
+.fhead{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  font-size:13.5px;font-weight:300;color:var(--soft);padding:7px 0;text-align:left;
+  transition:color .12s;line-height:1.3;}
+.fhead:hover{color:var(--ink);}
+.fhead.open{color:var(--ink);font-weight:400;}
+.fhead em{font-style:normal;font-size:10.5px;color:var(--muted);letter-spacing:.02em;text-transform:lowercase;}
+.fhead .caret{font-size:14px;color:var(--muted);width:12px;text-align:center;flex:none;line-height:1;}
+.fopts{display:flex;flex-direction:column;gap:1px;padding:1px 0 8px 12px;}
+.fopt{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font-size:13px;font-weight:300;color:var(--soft);padding:5px 0;text-align:left;transition:color .12s;}
+.fopt:hover{color:var(--ink);}
+.fopt.on{color:var(--ink);font-weight:400;}
+.fopt .tick{font-size:11px;color:var(--ink);opacity:0;transition:opacity .12s;}
+.fopt.on .tick{opacity:1;}
 
 .clear{margin-top:14px;font-size:12.5px;font-weight:300;color:var(--soft);
   text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line);}
@@ -246,12 +260,11 @@ table.list tr.on td{background:#F4F4F3;}
     </div>
     <div class="railsec">
       <p class="eyebrow">Sort</p>
-      <div class="optlist" id="sortlist"></div>
-      <div class="sortline"><button class="dir" id="dir" title="Reverse order">↑ ascending</button></div>
+      <div class="optlist" id="catlist"></div>
     </div>
     <div class="railsec">
       <p class="eyebrow">Filter</p>
-      <div class="optlist" id="filterlist"></div>
+      <div id="filterlist"></div>
       <button class="clear" id="clear" hidden>Clear all</button>
     </div>
   </aside>
@@ -282,35 +295,34 @@ const cpe  = g => g.price ? g.carbs / g.price : null;
 const napc = g => g.sodium != null ? g.sodium / g.carbs : null;
 const dens = g => g.p100.carbs;
 
-const SORTS = [
-  { key:"name",     label:"Brand & name",      dir:1,  get:null },
-  { key:"sodium",   label:"Sodium",            dir:-1, get:g=>g.sodium },
-  { key:"caffeine", label:"Caffeine",          dir:-1, get:g=>g.caffeine },
-  { key:"sugar",    label:"Sugar",             dir:-1, get:g=>g.sugar },
-  { key:"price",    label:"Price",             dir:1,  get:g=>g.price,  dec:2 },
-  { key:"cpe",      label:"Carbs per euro",    dir:-1, get:cpe,         dec:1 },
-  { key:"dens",     label:"Carb density",      dir:-1, get:dens },
-  { key:"napc",     label:"Sodium per g carb", dir:-1, get:napc,        dec:1 },
+// top categories — single select, they narrow the list to one type
+const CATS = [
+  { key:"all",      label:"Brand & name", test:null },
+  { key:"caffeine", label:"Caffeine",     test:g=>g.caffeine>0 },
+  { key:"jelly",    label:"Jelly",        test:g=>g.form==="Jelly" },
+  { key:"ice",      label:"Ice",          test:g=>g.form==="ICE" },
+  { key:"bicarb",   label:"Bicarb",       test:g=>g.form==="Bicarb" },
 ];
 
-const FILTERS = [
-  { key:"maurten", label:"Maurten",     test:g=>g.brand==="Maurten" },
-  { key:"mnstry",  label:"MNSTRY",      test:g=>g.brand==="MNSTRY" },
-  { key:"caf",     label:"Caffeine",    test:g=>g.caffeine>0 },
-  { key:"nocaf",   label:"No caffeine", test:g=>g.caffeine===0 },
-  { key:"nahigh",  label:"High sodium", test:g=>g.sodium>=150 },
-  { key:"nalow",   label:"Low sodium",  test:g=>g.sodium!=null && g.sodium<100 },
-  { key:"r108",    label:"Ratio 1:0.8", test:g=>g.ratioLabel==="1:0.8" },
-  { key:"r21",     label:"Ratio 2:1",   test:g=>g.ratioLabel==="2:1" },
-  { key:"jelly",   label:"Jelly",       test:g=>g.form==="Jelly" },
-  { key:"ice",     label:"Ice",         test:g=>g.form==="ICE" },
-];
+// filter groups (collapsible). pick-groups multi-select values; sort-groups set the ordering.
+const BRANDS = [...new Set(GELS.map(g=>g.brand))].sort();
+const RATIOS = [...new Set(GELS.map(g=>g.ratioLabel))].sort();
+const SORTKEYS = { carbs:g=>g.carbs, caffeine:g=>g.caffeine, sodium:g=>g.sodium,
+  sugar:g=>g.sugar, kcal:g=>g.kcal, dens:g=>g.p100.carbs, price:g=>g.price, cpe:g=>cpe(g) };
+const SORTLABEL = { carbs:"carbs", caffeine:"caffeine", sodium:"sodium",
+  sugar:"sugar", kcal:"calories", dens:"carb density", price:"price", cpe:"carbs / €" };
 
-const state = { sort:"name", dir:1, q:"", filters:new Set(), view:"cards", picked:[], modal:null };
+const state = {
+  cat:"all",
+  brands:new Set(),
+  ratios:new Set(),
+  sortKey:null, sortDir:1,     // dir 1 = low→high, -1 = high→low
+  expanded:new Set(),
+  q:"", view:"cards", picked:[], modal:null,
+};
 
 const num = (v,dec=0) => v==null ? "—" : (dec ? v.toFixed(dec) : Math.round(v));
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const sortDef = () => SORTS.find(s=>s.key===state.sort);
 const byId = id => GELS.find(g=>g.id===id);
 
 function splitBar(g){
@@ -327,18 +339,21 @@ function miniBar(g){
 
 function visible(){
   const q=state.q.trim().toLowerCase();
+  const cat=CATS.find(c=>c.key===state.cat);
   const out=GELS.filter(g=>{
+    if(cat.test && !cat.test(g)) return false;
+    if(state.brands.size && !state.brands.has(g.brand)) return false;
+    if(state.ratios.size && !state.ratios.has(g.ratioLabel)) return false;
     if(q && !`${g.brand} ${g.name} ${g.flavor}`.toLowerCase().includes(q)) return false;
-    for(const f of FILTERS) if(state.filters.has(f.key) && !f.test(g)) return false;
     return true;
   });
-  const s=sortDef();
-  return out.sort((x,y)=>{
-    if(s.key==="name") return (x.brand.localeCompare(y.brand)||x.name.localeCompare(y.name))*state.dir;
-    const a=s.get(x), b=s.get(y);
-    if(a==null) return 1; if(b==null) return -1;
-    return (a-b)*state.dir;
-  });
+  if(state.sortKey){
+    const get=SORTKEYS[state.sortKey];
+    out.sort((x,y)=>{const a=get(x),b=get(y); if(a==null)return 1; if(b==null)return -1; return (a-b)*state.sortDir;});
+  } else {
+    out.sort((x,y)=> x.brand.localeCompare(y.brand)||x.name.localeCompare(y.name));
+  }
+  return out;
 }
 
 function card(g){
@@ -375,8 +390,8 @@ const COLS=[
 ];
 function table(list){
   const head=COLS.map(c=>{
-    const can=c.key&&SORTS.some(s=>s.key===c.key), act=state.sort===c.key;
-    return `<th class="${c.l?"l":""}${act?" sorted":""}"${can?` data-sort="${c.key}"`:' style="cursor:default"'}>${c.label}${act?(state.dir===1?" ↑":" ↓"):""}</th>`;
+    const can=c.key&&SORTKEYS[c.key], act=state.sortKey===c.key;
+    return `<th class="${c.l?"l":""}${act?" sorted":""}"${can?` data-colsort="${c.key}"`:' style="cursor:default"'}>${c.label}${act?(state.sortDir===1?" ↑":" ↓"):""}</th>`;
   }).join("");
   const body=list.map(g=>{
     const on=state.picked.includes(g.id);
@@ -449,13 +464,37 @@ function comparompareSheet(){
   </div></div>`;
 }
 
+function pickGroup(id,label,values,set){
+  const open=state.expanded.has(id);
+  const badge = set.size ? `<em> · ${set.size}</em>` : "";
+  const opts = open ? `<div class="fopts">${values.map(v=>
+    `<button class="fopt${set.has(v)?" on":""}" data-toggle="${id}:${v}">${v}<span class="tick">✓</span></button>`).join("")}</div>` : "";
+  return `<div class="fgroup"><button class="fhead${open?" open":""}" data-expand="${id}">
+    <span>${label}${badge}</span><span class="caret">${open?"–":"+"}</span></button>${opts}</div>`;
+}
+function sortGroup(key,label){
+  const open=state.expanded.has(key);
+  const dir = state.sortKey===key ? state.sortDir : 0;
+  const badge = dir===1 ? `<em> · low → high</em>` : dir===-1 ? `<em> · high → low</em>` : "";
+  const opts = open ? `<div class="fopts">
+    <button class="fopt${dir===1?" on":""}" data-setsort="${key}:1">Low to high<span class="tick">✓</span></button>
+    <button class="fopt${dir===-1?" on":""}" data-setsort="${key}:-1">High to low<span class="tick">✓</span></button>
+  </div>` : "";
+  return `<div class="fgroup"><button class="fhead${open?" open":""}" data-expand="${key}">
+    <span>${label}${badge}</span><span class="caret">${open?"–":"+"}</span></button>${opts}</div>`;
+}
+
 function rail(){
-  document.getElementById("sortlist").innerHTML = SORTS.map(s=>
-    `<button class="opt${state.sort===s.key?" on":""}" data-sort="${s.key}">${s.label}<span class="tick">●</span></button>`).join("");
-  document.getElementById("dir").textContent = state.dir===1 ? "↑ ascending" : "↓ descending";
-  document.getElementById("filterlist").innerHTML = FILTERS.map(f=>
-    `<button class="opt${state.filters.has(f.key)?" on":""}" data-filter="${f.key}">${f.label}<span class="tick">✓</span></button>`).join("");
-  const c=document.getElementById("clear"); c.hidden = !(state.filters.size||state.q);
+  document.getElementById("catlist").innerHTML = CATS.map(c=>
+    `<button class="opt${state.cat===c.key?" on":""}" data-cat="${c.key}">${c.label}<span class="tick">●</span></button>`).join("");
+  document.getElementById("filterlist").innerHTML =
+    pickGroup("brands","Brand & name",BRANDS,state.brands)
+    + sortGroup("carbs","Carbs")
+    + sortGroup("caffeine","Caffeine")
+    + pickGroup("ratios","Ratio",RATIOS,state.ratios)
+    + sortGroup("sodium","Sodium");
+  const anyFilter = state.cat!=="all"||state.brands.size||state.ratios.size||state.sortKey||state.q;
+  document.getElementById("clear").hidden = !anyFilter;
   [...document.querySelectorAll("#view button")].forEach(b=>b.classList.toggle("on",b.dataset.view===state.view));
 }
 
@@ -469,28 +508,54 @@ function tray(){
       </div></div>`;
 }
 
+function statusText(n){
+  const bits=[`${n} of ${GELS.length} gels`];
+  if(state.cat!=="all") bits.push(CATS.find(c=>c.key===state.cat).label.toLowerCase());
+  if(state.sortKey) bits.push(`by ${SORTLABEL[state.sortKey]} ${state.sortDir===1?"↑":"↓"}`);
+  return bits.join(" · ");
+}
+
 function render(){
-  const list=visible(), s=sortDef();
+  const list=visible();
   rail(); tray();
-  document.getElementById("count").textContent =
-    `${list.length} of ${GELS.length} gels · sorted by ${s.label.toLowerCase()}`;
+  document.getElementById("count").textContent = statusText(list.length);
   const out=document.getElementById("out");
   out.innerHTML = !list.length
-    ? `<div class="empty">No gel matches these filters.<div><button class="clear" data-reset="1">Clear filters</button></div></div>`
+    ? `<div class="empty">No gel matches these filters.<div><button class="clear" data-clearfilters="1">Clear filters</button></div></div>`
     : (state.view==="cards" ? `<div class="grid">${list.map(card).join("")}</div>` : table(list));
   document.getElementById("modal").innerHTML =
     state.modal==="compare" ? comparompareSheet() : (state.modal ? detailSheet(byId(state.modal)) : "");
   document.body.style.overflow = state.modal ? "hidden" : "";
 }
 
+function clearFilters(){
+  state.cat="all"; state.brands.clear(); state.ratios.clear();
+  state.sortKey=null; state.sortDir=1; state.q="";
+  const q=document.getElementById("q"); if(q) q.value="";
+  // note: state.picked is deliberately kept, so a comparison survives a filter reset
+}
+
 document.addEventListener("click",e=>{
-  const t=e.target.closest("[data-sort],[data-filter],[data-reset],[data-view],[data-pick],[data-detail],[data-close],[data-compare],[data-clearpick],[data-clear],#dir,#clear");
+  const t=e.target.closest("[data-cat],[data-expand],[data-toggle],[data-setsort],[data-colsort],[data-view],[data-pick],[data-detail],[data-close],[data-compare],[data-clearpick],[data-clearfilters],#clear");
   if(!t) return;
   const d=t.dataset;
-  if(t.id==="dir"){ state.dir=-state.dir; }
-  else if(d.sort){ if(state.sort===d.sort) state.dir=-state.dir; else { state.sort=d.sort; state.dir=SORTS.find(s=>s.key===d.sort).dir; } }
-  else if(d.filter){ state.filters.has(d.filter)?state.filters.delete(d.filter):state.filters.add(d.filter); }
-  else if(t.id==="clear"||d.reset){ state.filters.clear(); state.q=""; document.getElementById("q").value=""; }
+  if(d.cat){ state.cat=d.cat; }
+  else if(d.expand){ state.expanded.has(d.expand)?state.expanded.delete(d.expand):state.expanded.add(d.expand); }
+  else if(d.toggle){
+    const i=d.toggle.indexOf(":"); const grp=d.toggle.slice(0,i), val=d.toggle.slice(i+1);
+    const set = grp==="brands" ? state.brands : state.ratios;
+    set.has(val)?set.delete(val):set.add(val);
+  }
+  else if(d.setsort){
+    const i=d.setsort.indexOf(":"); const key=d.setsort.slice(0,i), dd=+d.setsort.slice(i+1);
+    if(state.sortKey===key && state.sortDir===dd){ state.sortKey=null; }
+    else { state.sortKey=key; state.sortDir=dd; }
+  }
+  else if(d.colsort){
+    if(state.sortKey===d.colsort) state.sortDir=-state.sortDir;
+    else { state.sortKey=d.colsort; state.sortDir = d.colsort==="price"?1:-1; }
+  }
+  else if(t.id==="clear"||d.clearfilters){ clearFilters(); }
   else if(d.view){ state.view=d.view; }
   else if(d.pick!==undefined){
     e.stopPropagation();
