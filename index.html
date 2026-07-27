@@ -294,7 +294,6 @@ table.list tr.on td{background:#F4F4F3;}
 
 <script src="data.js"></script>
 <script>
-const cpe  = g => g.price ? g.carbs / g.price : null;
 const napc = g => g.sodium != null ? g.sodium / g.carbs : null;
 const dens = g => g.p100.carbs;
 
@@ -311,9 +310,9 @@ const CATS = [
 const BRANDS = [...new Set(GELS.map(g=>g.brand))].sort();
 const RATIOS = [...new Set(GELS.map(g=>g.ratioLabel))].sort();
 const SORTKEYS = { carbs:g=>g.carbs, caffeine:g=>g.caffeine, sodium:g=>g.sodium,
-  sugar:g=>g.sugar, kcal:g=>g.kcal, dens:g=>g.p100.carbs, price:g=>g.price, cpe:g=>cpe(g) };
+  sugar:g=>g.sugar, kcal:g=>g.kcal, kj:g=>g.kj, dens:g=>g.p100.carbs };
 const SORTLABEL = { carbs:"carbs", caffeine:"caffeine", sodium:"sodium",
-  sugar:"sugar", kcal:"calories", dens:"carb density", price:"price", cpe:"carbs / €" };
+  sugar:"sugar", kcal:"calories", kj:"kilojoules", dens:"carb density" };
 
 const state = {
   cat:"all",
@@ -397,8 +396,7 @@ function card(g){
 const COLS=[
   {key:"name",l:true,label:"Gel"},{key:null,l:true,label:"Glu : fru"},
   {key:"carbs",label:"Carbs g"},{key:"sugar",label:"Sugar g"},{key:"sodium",label:"Sodium mg"},
-  {key:"caffeine",label:"Caffeine mg"},{key:"kcal",label:"kcal"},{key:"dens",label:"Carbs/100 g"},
-  {key:"price",label:"Price €"},{key:"cpe",label:"Carbs/€"},
+  {key:"caffeine",label:"Caffeine mg"},{key:"kcal",label:"kcal"},{key:"kj",label:"kJ"},{key:"dens",label:"Carbs/100 g"},
 ];
 function table(list){
   const head=COLS.map(c=>{
@@ -414,14 +412,14 @@ function table(list){
       <td class="l"><span class="tb">${esc(g.brand)}</span><div class="tn">${esc(g.name)}</div></td>
       <td class="l">${miniBar(g)}</td>
       <td>${g.carbs}</td><td>${num(g.sugar)}</td><td>${num(g.sodium)}</td><td>${g.caffeine}</td>
-      <td>${g.kcal}</td><td>${num(dens(g))}</td><td>${num(g.price,2)}</td><td>${num(cpe(g),1)}</td></tr>`;
+      <td>${g.kcal}</td><td>${num(g.kj)}</td><td>${num(dens(g))}</td></tr>`;
   }).join("");
   return `<div class="tablewrap"><table class="list"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
 }
 
 function detailSheet(g){
   const rows=[
-    ["Calories",g.kcal,g.p100.kcal,"kcal"],["Carbohydrates",g.carbs,g.p100.carbs,"g"],
+    ["Energy",null,null,""],["Carbohydrates",g.carbs,g.p100.carbs,"g"],
     ["of which sugars",g.sugar,g.p100.sugar,"g"],["Sodium",g.sodium,g.p100.sodium,"mg"],
     ["Caffeine",g.caffeine,g.p100.caffeine,"mg"],
   ];
@@ -434,7 +432,7 @@ function detailSheet(g){
     </div>
     ${splitBar(g)}
     <table class="dt" style="margin-top:20px"><thead><tr><th></th><th>per gel</th><th>per 100 g</th></tr></thead><tbody>
-      ${rows.map(r=>`<tr><td>${r[0]}</td><td><b>${v(r[1])}</b> <em>${r[3]}</em></td><td>${v(r[2])} <em>${r[3]}</em></td></tr>`).join("")}
+      <tr><td>Energy</td><td><b>${g.kcal}</b> <em>kcal</em> · <b>${v(g.kj)}</b> <em>kJ</em></td><td>${v(g.p100.kcal)} <em>kcal</em></td></tr>${rows.filter(r=>r[0]!=="Energy").map(r=>`<tr><td>${r[0]}</td><td><b>${v(r[1])}</b> <em>${r[3]}</em></td><td>${v(r[2])} <em>${r[3]}</em></td></tr>`).join("")}
       <tr><td>Potassium</td><td colspan="2">${v(g.potassium)}</td></tr>
       <tr><td>Magnesium</td><td colspan="2">${v(g.magnesium)}</td></tr>
     </tbody></table>
@@ -443,7 +441,6 @@ function detailSheet(g){
       <div><span>Texture</span><b>${esc(g.consistency)}</b></div>
       <div><span>Flavour</span><b>${esc(g.flavor)}</b></div>
       <div><span>Carb sources</span><b>${esc(g.carbSources)}</b></div>
-      <div><span>Carbs per euro</span><b>${num(cpe(g),1)} g/€</b></div>
       <div><span>Sodium per g carb</span><b>${num(napc(g),1)} mg/g</b></div>
     </div>
     <p class="dsrc">Source: ${esc(g.source)} · ${esc(g.status)}</p>
@@ -471,7 +468,7 @@ function comparompareSheet(){
       <div class="vsn r"><b>${esc(B.name)}</b><span>${esc(B.brand)}</span></div>
     </div>
     ${vrow("Carbs g",A.carbs,B.carbs)}${vrow("Sugar g",A.sugar,B.sugar)}${vrow("Sodium mg",A.sodium,B.sodium)}
-    ${vrow("Caffeine mg",A.caffeine,B.caffeine)}${vrow("Calories",A.kcal,B.kcal)}${vrow("Carbs / €",cpe(A),cpe(B),1)}
+    ${vrow("Caffeine mg",A.caffeine,B.caffeine)}${vrow("Calories",A.kcal,B.kcal)}${vrow("kJ",A.kj,B.kj)}
     <div class="vsplit">
       <div><p>Glucose : fructose — ${A.ratioLabel}</p>${splitBar(A)}</div>
       <div><p>Glucose : fructose — ${B.ratioLabel}</p>${splitBar(B)}</div>
@@ -572,7 +569,7 @@ document.addEventListener("click",e=>{
   else if(d.colsort){
     const key=d.colsort; const idx=state.sorts.findIndex(s=>s.key===key);
     if(idx>=0) state.sorts[idx].dir=-state.sorts[idx].dir;
-    else state.sorts.push({key,dir:key==="price"?1:-1});
+    else state.sorts.push({key,dir:-1});
   }
   else if(t.id==="clear"||d.clearfilters){ clearFilters(); }
   else if(d.view){ state.view=d.view; }
