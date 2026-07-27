@@ -899,7 +899,7 @@ const GELS = [
     "status": "verified (per gel)"
   },
   {
-    "id": "neversecond-c30-cola",
+    "id": "neversecond-c30plus-cola",
     "brand": "Neversecond",
     "name": "C30+ Cola",
     "flavor": "Cola",
@@ -931,7 +931,7 @@ const GELS = [
     "status": "verified (per gel)"
   },
   {
-    "id": "neversecond-c30-espresso",
+    "id": "neversecond-c30plus-espresso",
     "brand": "Neversecond",
     "name": "C30+ Espresso",
     "flavor": "Espresso",
@@ -963,7 +963,7 @@ const GELS = [
     "status": "verified (per gel)"
   },
   {
-    "id": "neversecond-c30-berry",
+    "id": "neversecond-c30plus-berry",
     "brand": "Neversecond",
     "name": "C30+ Berry",
     "flavor": "Berry",
@@ -995,7 +995,7 @@ const GELS = [
     "status": "verified (per gel)"
   },
   {
-    "id": "neversecond-c30-passion-fruit",
+    "id": "neversecond-c30plus-passion-fruit",
     "brand": "Neversecond",
     "name": "C30+ Passion Fruit",
     "flavor": "Passion Fruit",
@@ -1059,7 +1059,7 @@ const GELS = [
     "status": "verified (per gel)"
   },
   {
-    "id": "neversecond-c30-neutral",
+    "id": "neversecond-c30plus-neutral",
     "brand": "Neversecond",
     "name": "C30+ Neutral",
     "flavor": "Neutral (unflavored)",
